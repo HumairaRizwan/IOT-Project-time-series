@@ -1,0 +1,683 @@
+[
+    {
+        "id": "8fdf21f6853da83a",
+        "type": "tab",
+        "label": "IOT_2023_004",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "93b00830eecbaca5",
+        "type": "mqtt in",
+        "z": "8fdf21f6853da83a",
+        "name": "",
+        "topic": "environment/temperature",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "dd6024b27128b6e4",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 230,
+        "y": 440,
+        "wires": [
+            [
+                "9ff496c8b726f6b5"
+            ]
+        ]
+    },
+    {
+        "id": "9ff496c8b726f6b5",
+        "type": "ui_gauge",
+        "z": "8fdf21f6853da83a",
+        "name": "Temperature",
+        "group": "e88b26f1576815bf",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Temperature",
+        "label": "C",
+        "format": "{{value}}",
+        "min": "-40",
+        "max": "125",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "20",
+        "seg2": "30",
+        "diff": false,
+        "className": "",
+        "x": 610,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "ed92c8244c0f0544",
+        "type": "inject",
+        "z": "8fdf21f6853da83a",
+        "name": "start",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "2",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 130,
+        "y": 140,
+        "wires": [
+            [
+                "fc0816e83bd24f39"
+            ]
+        ]
+    },
+    {
+        "id": "fc0816e83bd24f39",
+        "type": "rpi-dht22",
+        "z": "8fdf21f6853da83a",
+        "name": "",
+        "topic": "rpi-dht22",
+        "dht": 22,
+        "pintype": "0",
+        "pin": 4,
+        "x": 380,
+        "y": 120,
+        "wires": [
+            [
+                "d55f73f820767663",
+                "d9c74b5145a5f212"
+            ]
+        ]
+    },
+    {
+        "id": "b507d03224f3f6a0",
+        "type": "debug",
+        "z": "8fdf21f6853da83a",
+        "name": "temperature reading",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 900,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "74990bf14be84214",
+        "type": "mqtt out",
+        "z": "8fdf21f6853da83a",
+        "name": "",
+        "topic": "environment/temperature",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "dd6024b27128b6e4",
+        "x": 910,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "d55f73f820767663",
+        "type": "function",
+        "z": "8fdf21f6853da83a",
+        "name": "Temperature",
+        "func": "msg.payload = msg.payload\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 610,
+        "y": 80,
+        "wires": [
+            [
+                "b507d03224f3f6a0",
+                "74990bf14be84214"
+            ]
+        ]
+    },
+    {
+        "id": "d9c74b5145a5f212",
+        "type": "function",
+        "z": "8fdf21f6853da83a",
+        "name": "Humidity",
+        "func": "msg.payload = msg.humidity\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 540,
+        "y": 260,
+        "wires": [
+            [
+                "e5d1178031bc9f77",
+                "1c4c5d4e509b3782"
+            ]
+        ]
+    },
+    {
+        "id": "e5d1178031bc9f77",
+        "type": "debug",
+        "z": "8fdf21f6853da83a",
+        "name": "temperature reading",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 820,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "1c4c5d4e509b3782",
+        "type": "mqtt out",
+        "z": "8fdf21f6853da83a",
+        "name": "",
+        "topic": "environment/humidity",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "dd6024b27128b6e4",
+        "x": 820,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "4a861c4d7eb04424",
+        "type": "mqtt in",
+        "z": "8fdf21f6853da83a",
+        "name": "",
+        "topic": "environment/humidity",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "dd6024b27128b6e4",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 220,
+        "y": 520,
+        "wires": [
+            [
+                "4fa2debb97d96d1d"
+            ]
+        ]
+    },
+    {
+        "id": "4fa2debb97d96d1d",
+        "type": "ui_gauge",
+        "z": "8fdf21f6853da83a",
+        "name": "Humidity",
+        "group": "e88b26f1576815bf",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Humidity",
+        "label": "%",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "20",
+        "seg2": "30",
+        "diff": false,
+        "className": "",
+        "x": 600,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "6cdf18b398281d9d",
+        "type": "inject",
+        "z": "8fdf21f6853da83a",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 100,
+        "y": 740,
+        "wires": [
+            [
+                "f0c589fb4e75ad41",
+                "7dc1856bdeb24dba"
+            ]
+        ]
+    },
+    {
+        "id": "7dc1856bdeb24dba",
+        "type": "file in",
+        "z": "8fdf21f6853da83a",
+        "name": "Read Future Data",
+        "filename": "/home/admin/future.csv",
+        "filenameType": "str",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 390,
+        "y": 700,
+        "wires": [
+            [
+                "b5eef8e1dd1e96f3"
+            ]
+        ]
+    },
+    {
+        "id": "b5eef8e1dd1e96f3",
+        "type": "csv",
+        "z": "8fdf21f6853da83a",
+        "name": "",
+        "sep": ",",
+        "hdrin": true,
+        "hdrout": "all",
+        "multi": "mult",
+        "ret": "\\n",
+        "temp": "",
+        "skip": "0",
+        "strings": true,
+        "include_empty_strings": "",
+        "include_null_values": "",
+        "x": 430,
+        "y": 820,
+        "wires": [
+            [
+                "e679bb2cf6a221d5",
+                "6a2b8ccf0a231b5f"
+            ]
+        ]
+    },
+    {
+        "id": "8d29533fb0d9cd2f",
+        "type": "ui_chart",
+        "z": "8fdf21f6853da83a",
+        "name": "",
+        "group": "bc34d2569d05533d",
+        "order": 1,
+        "width": "6",
+        "height": "9",
+        "label": "",
+        "chartType": "line",
+        "legend": "true",
+        "xformat": "Y-M-D",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "100",
+        "removeOlder": "365",
+        "removeOlderPoints": "365",
+        "removeOlderUnit": "86400",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 890,
+        "y": 800,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e679bb2cf6a221d5",
+        "type": "function",
+        "z": "8fdf21f6853da83a",
+        "name": "function 4",
+        "func": "\nvar payload = msg.payload;\n\nvar data_out = [];\nvar a1 = [];\nvar labels=[];\n\n\nfor (let i = 0; i < payload.length; i++) {\n    var dt = payload[i].Date.split(\"/\");\n    var t = dt[2] + \"/\" + dt[0] + \"/\" + dt[1];\n    var temp1 = { \"x\": payload[i].Date, \"y\": parseInt(payload[i][\"Relative Humidity\"]) };\n\n\n    a1.push(temp1);\n    labels.push(t);\n\n\n}\n\n\n\ndata_out = [a1];\nmsg.payload = [{\n    \"series\": [\"AverageTemperature\"],\n    \"data\": data_out,\n    \"labels\": labels\n}];\n\n\nmsg.t = t;\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 540,
+        "y": 900,
+        "wires": [
+            [
+                "8d29533fb0d9cd2f",
+                "6a2b8ccf0a231b5f"
+            ]
+        ]
+    },
+    {
+        "id": "f0c589fb4e75ad41",
+        "type": "file in",
+        "z": "8fdf21f6853da83a",
+        "name": "Read Past Data",
+        "filename": "/home/admin/past.csv",
+        "filenameType": "str",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 260,
+        "y": 920,
+        "wires": [
+            [
+                "e9790398f5c49996"
+            ]
+        ]
+    },
+    {
+        "id": "e9790398f5c49996",
+        "type": "csv",
+        "z": "8fdf21f6853da83a",
+        "name": "",
+        "sep": ",",
+        "hdrin": true,
+        "hdrout": "all",
+        "multi": "mult",
+        "ret": "\\n",
+        "temp": "",
+        "skip": "0",
+        "strings": true,
+        "include_empty_strings": "",
+        "include_null_values": "",
+        "x": 450,
+        "y": 1060,
+        "wires": [
+            [
+                "dafc7bf61071e2a2",
+                "9fee40e9b5e68f21"
+            ]
+        ]
+    },
+    {
+        "id": "dafc7bf61071e2a2",
+        "type": "function",
+        "z": "8fdf21f6853da83a",
+        "name": "function 5",
+        "func": "var payload = msg.payload;\n\nvar data_out = [];\nvar a1 = [];\nvar labels = [];\n\n\nfor (let i = 0; i < payload.length; i++) {\n    var dt = payload[i].Date.split(\"/\");\n    var t = dt[2] + \"/\" + dt[0] + \"/\" + dt[1];\n    var temp1 = { \"x\": payload[i].Date, \"y\": parseInt(payload[i][\"Relative Humidity\"]) };\n\n\n    a1.push(temp1);\n    labels.push(t);\n\n\n}\n\n\n\ndata_out = [a1];\nmsg.payload = [{\n    \"series\": [\"AverageTemperature\"],\n    \"data\": data_out,\n    \"labels\": labels\n}];\n\n\nmsg.t = t;\n\nreturn msg;\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 700,
+        "y": 1060,
+        "wires": [
+            [
+                "9fee40e9b5e68f21",
+                "da0d83452be503c1"
+            ]
+        ]
+    },
+    {
+        "id": "da0d83452be503c1",
+        "type": "ui_chart",
+        "z": "8fdf21f6853da83a",
+        "name": "",
+        "group": "1b39d2cf9512bd48",
+        "order": 1,
+        "width": "6",
+        "height": "9",
+        "label": "",
+        "chartType": "line",
+        "legend": "true",
+        "xformat": "Y-M-D",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "100",
+        "removeOlder": "365",
+        "removeOlderPoints": "365",
+        "removeOlderUnit": "86400",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 850,
+        "y": 1140,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "9fee40e9b5e68f21",
+        "type": "debug",
+        "z": "8fdf21f6853da83a",
+        "name": "debug 4",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 880,
+        "y": 980,
+        "wires": []
+    },
+    {
+        "id": "6a2b8ccf0a231b5f",
+        "type": "debug",
+        "z": "8fdf21f6853da83a",
+        "name": "debug 5",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 840,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "5015ad7facb217e2",
+        "type": "pythonshell in",
+        "z": "8fdf21f6853da83a",
+        "name": "Temprature Prediction",
+        "pyfile": "/home/admin/time_series_prediction.py",
+        "virtualenv": "",
+        "continuous": false,
+        "stdInData": false,
+        "x": 420,
+        "y": 620,
+        "wires": [
+            [
+                "06bd5f0eeb194719"
+            ]
+        ]
+    },
+    {
+        "id": "6bdc85e85bcb6764",
+        "type": "inject",
+        "z": "8fdf21f6853da83a",
+        "name": "Start",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 90,
+        "y": 620,
+        "wires": [
+            [
+                "5015ad7facb217e2"
+            ]
+        ]
+    },
+    {
+        "id": "06bd5f0eeb194719",
+        "type": "debug",
+        "z": "8fdf21f6853da83a",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 730,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "b630a4ae254207f6",
+        "type": "ui_spacer",
+        "z": "8fdf21f6853da83a",
+        "name": "spacer",
+        "group": "e88b26f1576815bf",
+        "order": 3,
+        "width": 6,
+        "height": 1
+    },
+    {
+        "id": "dd6024b27128b6e4",
+        "type": "mqtt-broker",
+        "name": "Broker",
+        "broker": "localhost",
+        "port": "1883",
+        "clientid": "MQTT_FX_Client",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "e88b26f1576815bf",
+        "type": "ui_group",
+        "name": "                         Current Readings",
+        "tab": "8f56b9b0906b3c79",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "bc34d2569d05533d",
+        "type": "ui_group",
+        "name": "Future Temperature Predictions",
+        "tab": "8f56b9b0906b3c79",
+        "order": 3,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "1b39d2cf9512bd48",
+        "type": "ui_group",
+        "name": "Past Temperature Predictions",
+        "tab": "8f56b9b0906b3c79",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "8f56b9b0906b3c79",
+        "type": "ui_tab",
+        "name": "IoT based Temperature and Humidity Monitoring System",
+        "icon": "dashboard",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
+    }
+]
