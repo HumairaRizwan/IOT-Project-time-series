@@ -10,3 +10,9 @@ The system:
 - Display gauge shows three different temperature levels (High, Medium, Low).
 - MQTT protocol used for message transport between Pi and dashboard.
 - Node-Red dashboard displays latest temperature, past data visualization, and temperature prediction
+
+According to the readings of temperature and  humidity sensor, the display gauge will  display the heat index level in four stages.
+Implemented MQTT and node red dashboard  to detect current temperature and humidity  reading from sensor; published to MQTT  broker where that data is visualized in display  gauge and line chart.
+Implement the Machine Learning model to  forecast the past and future temperature and  humidity and display in Node-RED dashboard.
+
+
